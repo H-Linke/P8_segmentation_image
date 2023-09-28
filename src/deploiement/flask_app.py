@@ -45,18 +45,25 @@
 #     app.run(debug=True)
 #
 
-from flask import Flask
+from flask import Flask, render_template
+import os
+
+source = os.getcwd().replace("\\", "/")
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+predict_path = "{}/src/deploiement/app/templates/predict.html".format(source)
+
 
 app = Flask(__name__)
 
-@app.route("/")
-def hello_world():
-    return "<p>Hello, World!</p>"
+# @app.route("/<name>")
+# def hello(name):
+#     return f"Hello, {name}! \n Nous sommes ici : {predict_path}"
 
 
-#
-# if __name__ == '__main__':
-#
-#     print('hello')
-#     print("source : ", source)
-#     print("model_path : ", model_path)
+
+
+@app.route("/predict")
+def predict():
+    return render_template(predict_path, title="Predict")
+

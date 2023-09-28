@@ -3,10 +3,8 @@ channels:
   - defaults
 dependencies:
   - python=3.8
-  - numpy
-  - pandas
-  - matplotlib
-  - scikit-learn
-  - jupyter
-  - tensorflow
-  - Flask
+  - numpy=1.24.3
+  - pandas=2.0.3
+  - matplotlib=3.7.2
+  - tensorflow=2.10.0
+  - flask=2.3.3

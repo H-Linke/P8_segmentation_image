@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block ourpage %}
+<h1>Masque autommatisé via une IA</h1>
+
+<p>Voici l'image et son masque prédit.</p>
+
+<!-- Afficher l'image encodée en base64 -->
+<img src="data:image/png;base64,{{ image_base64 }}" alt="Images côte à côte">
+
+
+{% endblock %}

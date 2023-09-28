@@ -6,49 +6,6 @@ img_height, img_width = 256, 256
 classes = 8
 filters_n = 64
 
-# class seg_gen(Sequence):
-#     def __init__(self, x_set, y_set, batch_size):
-#         self.x, self.y = x_set, y_set
-#         self.batch_size = batch_size
-#
-#     def __len__(self):
-#         return int(np.ceil(len(self.x) / float(self.batch_size)))
-#
-#     def __getitem__(self, idx):
-#         idx = np.random.randint(0, 50000, batch_size)
-#         batch_x, batch_y = [], []
-#         drawn = 0
-#         for i in idx:
-#             _image = image.img_to_array(image.load_img(f'{image_dir}/{image_list[i]}', target_size=(img_height, img_width)))/255.
-#             img = image.img_to_array(image.load_img(f'{mask_dir}/{mask_list[i]}', grayscale=True, target_size=(img_height, img_width)))
-#             labels = np.unique(img)
-#             if len(labels) < 3:
-#                 idx = np.random.randint(0, 50000, batch_size-drawn)
-#                 continue
-#             img = np.squeeze(img)
-#             mask = np.zeros((img.shape[0], img.shape[1], 8))
-#             for i in range(-1, 34):
-#                 if i in cats['void']:
-#                     mask[:,:,0] = np.logical_or(mask[:,:,0],(img==i))
-#                 elif i in cats['flat']:
-#                     mask[:,:,1] = np.logical_or(mask[:,:,1],(img==i))
-#                 elif i in cats['construction']:
-#                     mask[:,:,2] = np.logical_or(mask[:,:,2],(img==i))
-#                 elif i in cats['object']:
-#                     mask[:,:,3] = np.logical_or(mask[:,:,3],(img==i))
-#                 elif i in cats['nature']:
-#                     mask[:,:,4] = np.logical_or(mask[:,:,4],(img==i))
-#                 elif i in cats['sky']:
-#                     mask[:,:,5] = np.logical_or(mask[:,:,5],(img==i))
-#                 elif i in cats['human']:
-#                     mask[:,:,6] = np.logical_or(mask[:,:,6],(img==i))
-#                 elif i in cats['vehicle']:
-#                     mask[:,:,7] = np.logical_or(mask[:,:,7],(img==i))
-#             mask = np.resize(mask,(img_height*img_width, 8))
-#             batch_y.append(mask)
-#             batch_x.append(_image)
-#             drawn += 1
-#         return np.array(batch_x), np.array(batch_y)
 
 import os
 import numpy as np
