@@ -64,4 +64,4 @@ def predict_img(filename):
 
 
 if __name__ == '__main__':
-    pass
+    print('hello')

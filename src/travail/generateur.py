@@ -149,24 +149,25 @@ def augmentation(path_image, path_masque, output_height, output_width, seed_n):
 
     # Génère aléatoirement un facteur d'échelle, du bruit et un angle de rotation
     scale_factor = tf.random.stateless_uniform([2], seed=seed_n, minval=0.9, maxval=1, dtype=tf.float16).numpy()
-    noise = tf.random.stateless_uniform([1], seed=seed_n, minval=0, maxval=10, dtype=tf.int32).numpy()
-    theta = tf.random.stateless_uniform([1], seed=seed_n, minval=-5, maxval=6, dtype=tf.int32).numpy()
+    noise = tf.random.stateless_uniform([1], seed=seed_n, minval=0, maxval=5, dtype=tf.int32).numpy()
+    # theta = tf.random.stateless_uniform([1], seed=seed_n, minval=-5, maxval=6, dtype=tf.int32).numpy()
+    theta = 0
 
     # Modification commune - Image
     img0_aug = rotation(path_image, angle=theta)
     orig_h, orig_w, nb_can = img0_aug.shape
     new_h, new_w = int(orig_h * scale_factor[0]), int(orig_w * scale_factor[1])
 
-    img0_aug = tf.image.stateless_random_crop(img0_aug, (new_h, new_w, nb_can), seed=seed_n)
+    img0_aug = tf.image.stateless_random_crop(img0_aug, (orig_h, orig_w, nb_can), seed=seed_n)
     img0_aug = tf.image.resize(img0_aug, [orig_h, orig_w], method=tf.image.ResizeMethod.BILINEAR)
     img0_aug = tf.image.stateless_random_flip_left_right(img0_aug, seed=seed_n)
 
     # Modification propre au images
     if np.random.rand(1) < 0.2:
-        img0_aug = tf.image.stateless_random_brightness(img0_aug, seed=seed_n, max_delta=10)
+        img0_aug = tf.image.stateless_random_brightness(img0_aug, seed=seed_n, max_delta=5)
 
     elif np.random.rand(1) < 0.2:
-        img0_aug = tf.image.stateless_random_contrast(img0_aug, lower=0.5, upper=1.5, seed=seed_n)
+        img0_aug = tf.image.stateless_random_contrast(img0_aug, lower=0.8, upper=1.2, seed=seed_n)
 
     elif np.random.rand(1) < 0.2:
         img0_aug = tf.image.stateless_random_hue(img0_aug, max_delta=0.1, seed=seed_n)
@@ -185,7 +186,7 @@ def augmentation(path_image, path_masque, output_height, output_width, seed_n):
     orig_h, orig_w, nb_can = mask0_aug.shape
     new_h, new_w = int(orig_h * scale_factor[0]), int(orig_w * scale_factor[1])
 
-    mask0_aug = tf.image.stateless_random_crop(mask0_aug, (new_h, new_w, nb_can), seed=seed_n)
+    mask0_aug = tf.image.stateless_random_crop(mask0_aug, (orig_h, orig_w, nb_can), seed=seed_n)
     mask0_aug = tf.image.stateless_random_flip_left_right(mask0_aug, seed=seed_n)
     mask0_aug = tf.image.resize(mask0_aug, [output_height, output_width], method=tf.image.ResizeMethod.BILINEAR)
 
@@ -207,7 +208,7 @@ def data_generator_aug(image_folder, mask_folder, batch_size, img_height, img_wi
     """
     image_filenames = os.listdir(image_folder)
     num_samples = len(image_filenames)
-    j = 15
+    j = 0
     while True:
         indices = np.arange(num_samples)
         np.random.shuffle(indices)

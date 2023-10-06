@@ -9,9 +9,9 @@ APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 app = Flask(__name__)
 
 
-# @app.route("/<name>")
-# def hello(name):
-#     return f"Hello, {name}! \n Nous sommes ici : {predict_path}"
+@app.route('/')
+def home():
+    return render_template('home.html')
 
 
 @app.route('/about')

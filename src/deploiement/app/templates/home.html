@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+{% block ourpage %}
+<div class="jumbotron">
+    <h1 class="display-4">Bienvenue sur notre projet</h1>
+    <small><b>Note :</b> Projet réalisé dans le cadre d’une formation OpenClassrooms</small><br><br>
+    <p>Ce projet est l’initiative de Future Vision Transport qui conçoit des systèmes embarqués de vision par
+        ordinateur pour les véhicules autonomes.<br><br>
+        La partie qui nous incombe est l’automatisation de la segmentation d’image qui permettra la prise de
+        décision pour le véhicule.<br>
+        Pour entraîner notre algorithme de segmentation d’image, nous disposons d’un jeu de données provenant de
+        <a href="https://www.cityscapes-dataset.com/dataset-overview/">Cityscapes</a> et téléchargeable.
+        Ce jeu de données sont des prises de vue depuis une caméra embarquée dans un véhicule, avec toujours la même
+        prise de vue rectiligne vers l’avant du véhicule circulant à travers différentes villes. Les données se
+        décomposent en deux parties : les images provenant de la caméra, et les masques associés à chaque image.<br>
+        Les masques sont des images en couleur. Tout ce qui compose l’image est classé selon l’une des 29 classes
+        différentes à laquelle est associée une couleur unique.<br><br>
+        Vous pouvez télécharger les images à ce
+        <a href="https://s3-eu-west-1.amazonaws.com/static.oc-static.com/prod/courses/files/AI+Engineer/Project+8+-+Participez+%C3%A0+la+conception+d'une+voiture+autonome/P8_Cityscapes_leftImg8bit_trainvaltest.zip">lien</a>
+        pour tester vous-même l’automatisation de la segmentation, en allant dans la section <a href="{{ url_for('predict') }}">prédiction</a>.</p><br>
+
+    <h4>1. État de l'Art</h4>
+
+    <p>Dans le domaine de la segmentation d'images, plusieurs approches ont été explorées. Les méthodes classiques incluent la segmentation basée sur la couleur, qui divise une image en régions en fonction de critères chromatiques, et la segmentation basée sur la texture, qui utilise les variations de texture pour identifier des objets. Une autre approche consiste en la segmentation basée sur la région, qui regroupe les pixels similaires en fonction de leur proximité spatiale.</p>
+
+    <p>Cependant, ces méthodes classiques présentent des limitations. La segmentation basée sur la couleur peut être sensible à l'éclairage et aux variations de teinte. La segmentation basée sur la texture peut être sensible aux changements d'échelle et aux déformations. La segmentation basée sur la région peut avoir du mal à traiter des objets de formes irrégulières.</p>
+
+    <p>Pour surmonter ces limitations, des avancées récentes en apprentissage profond ont permis le développement d'architectures telles qu'U-Net. Cette architecture se distingue par sa capacité à capturer des informations contextuelles tout en maintenant la précision des détails. Elle a gagné en popularité pour sa polyvalence et sa performance dans un large éventail d'applications de segmentation d'images. Dans cette note, nous examinons comment U-Net s'intègre dans le paysage actuel de la segmentation d'images, en mettant en évidence ses avantages, notamment sa capacité à gérer des scénarios complexes.</p>
+
+    <h4>2. Modèle U-Net : Concept et Architecture</h4>
+
+    <p>L'architecture U-Net repose sur un concept d'encodeur-décodeur. Elle se compose d'un chemin descendant (encodeur) qui capture les caractéristiques d'une image à différentes échelles, suivi d'un chemin ascendant (décodeur) qui reconstitue la segmentation. Les blocs de convolution dans l'encodeur extraient progressivement des informations abstraites, tandis que les blocs de déconvolution dans le décodeur restaurent la résolution spatiale.</p>
+
+    <p>Un élément clé de l'architecture U-Net est l'utilisation de couches de réduction et d'augmentation. Les couches de réduction, généralement sous forme de max-pooling, réduisent la taille spatiale tout en conservant les caractéristiques importantes. Les couches d'augmentation, réalisées par des opérations de déconvolution, restaurent la résolution. Cela permet à U-Net de capturer des détails fins tout en maintenant une vue globale du contexte.</p>
+
+    <p>Le choix de l'architecture U-Net repose sur sa capacité à combiner efficacement des informations à différentes échelles spatiales. Cette architecture est bien adaptée aux tâches de segmentation d'images, où la localisation précise des objets et la compréhension du contexte environnant sont essentielles.</p>
+
+</div>
+{% endblock %}
